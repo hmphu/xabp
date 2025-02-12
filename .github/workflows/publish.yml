@@ -27,6 +27,6 @@ jobs:
       shell: powershell
 
     - name: Publish All Packages
-      run: .\nuget-push.ps1 -url "https://api.nuget.org/v3/index.json" -key ${{ secrets.NUGETKEY }} -f
+      run: .\nuget-push.ps1 -url ${{ secrets.NUGETURL }} -key ${{ secrets.NUGETKEY }} -f
       working-directory: .\deploy
       shell: powershell
