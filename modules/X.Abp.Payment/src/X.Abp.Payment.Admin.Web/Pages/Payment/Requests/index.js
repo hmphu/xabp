@@ -1,7 +1,7 @@
 ﻿$(function () {
     var l = abp.localization.getResource("Payment");
 
-    var service = x.payment.admin.requests.paymentRequestAdmin;
+    var service = x.abp.payment.admin.requests.paymentRequestAdmin;
 	
     var minDate = "";
     var maxDate = "";

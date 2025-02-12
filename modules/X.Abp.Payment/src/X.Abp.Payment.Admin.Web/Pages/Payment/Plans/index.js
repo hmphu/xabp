@@ -4,7 +4,7 @@ $(function () {
     var createModal = new abp.ModalManager({ viewUrl: abp.appPath + "Payment/Plans/CreateModal", modalClass: 'createPlan' });
     var updateModal = new abp.ModalManager({ viewUrl: abp.appPath + "Payment/Plans/UpdateModal", modalClass: 'updatePlan' });
 
-    var service = x.payment.admin.plans.planAdmin;
+    var service = x.abp.payment.admin.plans.planAdmin;
 
     abp.ui.extensions.entityActions.get("payment.plan").addContributor(
         function(actionList) {
