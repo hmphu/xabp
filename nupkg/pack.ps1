@@ -25,6 +25,12 @@ foreach ($project in $projects) {
     $projectFolder = Join-Path $rootFolder $project
     $projectName = ($project -split '/')[-1]
 
+    # Skip the project if the name contains "IdentityServer"
+    if ($projectName -like "*IdentityServer*") {
+        Write-Info "Skipping project: $projectName because of IdentityServer4 is now a paid package"
+        continue
+    }
+
     # Create nuget pack
     Write-Info "[$i / $projectsCount] - Packing project: $projectName"
     Set-Location $projectFolder
