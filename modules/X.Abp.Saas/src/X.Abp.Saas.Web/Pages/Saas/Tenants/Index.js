@@ -1,6 +1,6 @@
 (function () {
     let l = abp.localization.getResource('Saas');
-    let _tenantAppService = x.saas.tenant;
+    let _tenantAppService = x.abp.saas.tenant;
 
     let _editModal = new abp.ModalManager({
         viewUrl: abp.appPath + 'Saas/Tenants/EditModal',

@@ -1,6 +1,6 @@
 (function () {
     var l = abp.localization.getResource('Saas');
-    var _editionAppService = x.saas.host.edition;
+    var _editionAppService = x.abp.saas.edition;
 
     var _editModal = new abp.ModalManager(
         abp.appPath + 'Saas/Editions/EditModal'

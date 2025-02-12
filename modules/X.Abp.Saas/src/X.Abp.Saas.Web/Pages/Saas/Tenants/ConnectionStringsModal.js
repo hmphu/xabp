@@ -63,7 +63,7 @@
                         databaseConnectionStringInput.focus();
                         return;
                     }
-                    x.saas.tenant.checkConnectionString(databaseConnectionString).then(function (result) {
+                    x.abp.saas.tenant.checkConnectionString(databaseConnectionString).then(function (result) {
                         if (result) {
                             abp.notify.success(l('ValidConnectionString'));
                         }
@@ -81,7 +81,7 @@
                     return;
                 }
 
-                x.saas.tenant.checkConnectionString(connectionString).then(function (result) {
+                x.abp.saas.tenant.checkConnectionString(connectionString).then(function (result) {
                     if (result) {
                         abp.notify.success(l('ValidConnectionString'));
                     }

@@ -18,7 +18,7 @@
         var _chart;
 
         var refresh = function () {
-            x.saas.edition.getUsageStatistics({})
+            x.abp.saas.edition.getUsageStatistics({})
                 .then(function (statistic) {
                     _chart.data = {
                         labels: Object.keys(statistic.data),
