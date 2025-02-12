@@ -28,14 +28,14 @@ public class DynamicResourceLocalizer : IDynamicResourceLocalizer, ISingletonDep
 
   public virtual LocalizedString GetOrNull(LocalizationResourceBase resource, string cultureName, string name)
   {
-    var cacheItem = GetCacheItem(resource, cultureName);
+    var cacheItem = GetCacheItemAsync(resource, cultureName).GetAwaiter().GetResult();
     var value = cacheItem.Dictionary.GetOrDefault(name);
     return value == null ? null : new LocalizedString(name, value);
   }
 
   public virtual void Fill(LocalizationResourceBase resource, string cultureName, Dictionary<string, LocalizedString> dictionary)
   {
-    var cacheItem = GetCacheItem(resource, cultureName);
+    var cacheItem = GetCacheItemAsync(resource, cultureName).GetAwaiter().GetResult();
 
     foreach (var item in cacheItem.Dictionary)
     {
@@ -51,35 +51,9 @@ public class DynamicResourceLocalizer : IDynamicResourceLocalizer, ISingletonDep
     }
   }
 
-  protected virtual LanguageTextCacheItem GetCacheItem(LocalizationResourceBase resource, string cultureName)
-  {
-    return Cache.GetOrAdd(
-        LanguageTextCacheItem.CalculateCacheKey(resource.ResourceName, cultureName),
-        () => CreateCacheItem(resource, cultureName));
-  }
-
   protected virtual Task<LanguageTextCacheItem> GetCacheItemAsync(LocalizationResourceBase resource, string cultureName)
   {
     return Cache.GetOrAddAsync(LanguageTextCacheItem.CalculateCacheKey(resource.ResourceName, cultureName), () => CreateCacheItemAsync(resource, cultureName));
-  }
-
-  protected virtual LanguageTextCacheItem CreateCacheItem(LocalizationResourceBase resource, string cultureName)
-  {
-    var cacheItem = new LanguageTextCacheItem();
-
-    using (var scope = ServiceScopeFactory.CreateScope())
-    {
-      var texts = scope.ServiceProvider
-          .GetRequiredService<ILanguageTextRepository>()
-          .GetList(resource.ResourceName, cultureName);
-
-      foreach (var text in texts)
-      {
-        cacheItem.Dictionary[text.Name] = text.Value;
-      }
-    }
-
-    return cacheItem;
   }
 
   protected virtual async Task<LanguageTextCacheItem> CreateCacheItemAsync(LocalizationResourceBase resource, string cultureName)
